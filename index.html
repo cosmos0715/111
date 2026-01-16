@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三酒豌豆</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//avatars.githubusercontent.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <div class="nav">
+            <a class="active" data-target="home">首页</a>
+            <a data-target="live">直播录像</a>
+            <a data-target="playlist">歌单</a>
+            <a data-target="fanwork">切片</a>
+            <a data-target="photo">照片墙</a>
+            <a data-target="wiki">直播间梗百科</a>
+            <a data-target="投稿">水友投稿</a>
+
+        </div>
+
+        <!-- 首页内容 -->
+        <div id="home" class="content-section active">
+            <div class="avatar-container" onclick="window.open('https://www.douyu.com/12282113', '_blank')">
+                <div class="avatar-circle">
+                    <img src="bg-illustration.png" alt="三酒豌豆头像">
+                </div>
+            </div>
+            
+            <h2 style="text-align: center; margin: 20px 0;">
+                <p style="transition: all 0.3s ease; margin: 8px 0;">
+                三酒直播间：<a href="https://www.douyu.com/2421040?dyshid=5429a3-5d35afbce431b49c172e5c6500081701" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #000000; transition: all 0.3s ease;">斗鱼2421040</a>
+                </p>
+                <p style="transition: all 0.3s ease; margin: 8px 0;">
+                豌豆直播间：<a href="https://www.douyu.com/12282113?dyshid=5429a3-5d35afbce431b49c172e5c6500081701" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #000000; transition: all 0.3s ease;">斗鱼12282113</a>
+                </p>
+                <p style="transition: all 0.3s ease; margin: 8px 0;">
+                三酒抖音：<a href="https://www.douyin.com/user/MS4wLjABAAAAHO0fnDCIQzg1-jKF_z9mStnHHOHmnaFVTMNSwjeOgw8?from_tab_name=main&showTab=like" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #000000; transition: all 0.3s ease;">三酒</a>
+                </p>
+                <p style="transition: all 0.3s ease; margin: 8px 0;">
+                豌豆抖音：<a href="https://www.douyin.com/user/MS4wLjABAAAAg4UNeurtTSyH52owjtEjlrTIMhbk1ipI3PzP-yQfREM?from_tab_name=main" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #000000; transition: all 0.3s ease;">绝世狂花</a>
+                </p>
+            </h2>
+
+            <!-- 新增的样式代码，实现悬停放大效果 -->
+            <style>
+                /* 鼠标悬停在p标签上时，文字放大 */
+                h2 p:hover {
+                    transform: scale(1.1); /* 放大到原来的1.1倍，可自行调整数值 */
+                    cursor: default; /* 鼠标样式为默认，可选 */
+                }
+                /* 鼠标悬停在链接上时，链接文字也放大（可选） */
+                h2 a:hover {
+                    transform: scale(1.1);
+                }
+            </style>            
+        </div>
+        
+        <!-- 直播录像内容 -->
+        <div id="live" class="content-section">
+            <div class="calendar-wrapper">
+                <div class="calendar-header">
+                    <button id="prev-month">上一月</button>
+                    <h3 id="month-display"></h3>
+                    <button id="next-month">下一月</button>
+                </div>
+                <table class="calendar">
+                    <thead>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+            <h3 style="text-align: center; margin: 20px 0;">近期直播录像</h3>
+            <ul class="link-list" id="recent-videos-list"></ul>
+        </div>
+        
+        <!-- 歌单内容 -->
+        <div id="playlist" class="content-section">
+            <h2 style="text-align: center; margin-bottom: 20px;font-size: 25px;">暂未更新 🎵</h2>
+        </div>
+
+         <!-- 直播间梗百科内容 -->
+        <div id="wiki" class="content-section">
+            <h2 style="text-align: center; margin-bottom: 20px;font-size: 25px;">等待施工</h2>
+        </div>
+
+        <!-- 水友投稿内容 -->
+        <div id="投稿" class="content-section">
+            <h2 style="text-align: center; margin-bottom: 20px;font-size: 25px;">等待施工</h2>
+        </div>
+
+        <!-- 照片墙内容（拆分3个子版块） -->
+        <div id="photo" class="content-section">
+            <h2 style="text-align: center; margin-bottom: 20px;font-size: 25px;"> </h2>
+            
+            <!-- 新增：照片分类切换导航 -->
+            <div class="photo-category-nav" style="text-align: center; margin-bottom: 20px;">
+                <button class="category-btn active" data-category="豌豆">豌豆</button>
+                <button class="category-btn" data-category="豆酒">豆酒</button>
+                <button class="category-btn" data-category="合照">合照</button>
+            </div>
+
+            <!-- 图片展示容器 -->
+            <div class="photo-gallery" id="photoGallery">
+                <div class="loading-tip">正在加载图片...</div>
+            </div>
+        
+            <!-- 图片预览弹窗 -->
+            <div id="imagePreviewModal" class="image-preview-modal">
+                <button class="close-btn" onclick="closeImagePreview()">×</button>
+                <img id="previewImage" class="preview-image" src="" alt="原图预览">
+            </div>
+        
+            <!-- 照片墙样式 -->
+            <style>
+                /* 新增：分类切换按钮样式 */
+                .photo-category-nav {
+                    display: flex;
+                    justify-content: center;
+                    gap: 15px;
+                    flex-wrap: wrap;
+                    padding: 0 20px;
+                }
+                .category-btn {
+                    padding: 8px 20px;
+                    border: none;
+                    border-radius: 20px;
+                    background: #f0f0f0;
+                    color: #333;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+                .category-btn.active {
+                    background: #e63946;
+                    color: white;
+                }
+                .category-btn:hover:not(.active) {
+                    background: #e8e8e8;
+                }
+
+                .photo-gallery {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    gap: 15px;
+                    padding: 0 20px 20px;
+                }
+                .photo-item {
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    transition: transform 0.3s ease;
+                    cursor: zoom-in;
+                }
+                .photo-item:hover {
+                    transform: scale(1.03);
+                }
+                .photo-item img {
+                    width: 100%;
+                    height: 200px;
+                    object-fit: cover;
+                    display: block;
+                }
+                .photo-item p {
+                    padding: 8px 10px;
+                    font-size: 14px;
+                    color: #333;
+                    background: #f8f8f8;
+                    margin: 0;
+                }
+                .loading-tip, .error-tip, .no-data-tip {
+                    grid-column: 1 / -1;
+                    text-align: center;
+                    padding: 40px 0;
+                    font-size: 16px;
+                    color: #666;
+                }
+                .error-tip {
+                    color: #ff7875;
+                }
+                @media (max-width: 768px) {
+                    .photo-gallery {
+                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                        gap: 10px;
+                    }
+                    .photo-item img {
+                        height: 160px;
+                    }
+                    .category-btn {
+                        padding: 6px 15px;
+                        font-size: 14px;
+                    }
+                }
+
+                /* 图片预览弹窗样式 */
+                .image-preview-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.9);
+                    display: none;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 9999;
+                    padding: 20px;
+                }
+                .preview-image {
+                    width: auto;
+                    height: auto;
+                    max-width: 90vw;
+                    max-height: 90vh;
+                    object-fit: contain;
+                    border-radius: 4px;
+                    display: block;
+                    background: #fff;
+                    padding: 2px;
+                }
+                .close-btn {
+                    position: absolute;
+                    top: -15px;
+                    right: -15px;
+                    color: white;
+                    font-size: 30px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    background: rgba(0,0,0,0.8);
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+                    transition: all 0.2s ease;
+                    z-index: 10000;
+                }
+                .close-btn:hover {
+                    background: #ff7875;
+                    color: white;
+                }
+                #previewImageWrapper {
+                    position: relative;
+                    display: inline-block;
+                }
+            </style>
+        </div>
+        
+        <!-- 切片内容 -->
+        <div id="fanwork" class="content-section">
+             <p style="text-align: center; margin-bottom: 20px;font-size: 25px;">感谢各位水友的创作，每一份作品都超用心：</p>
+                
+             <!-- 嵌入式播放器容器 -->
+            <div id="videoPlayerContainer">
+                <h3 style="margin: 0 0 10px 0;">
+                    <span id="playerTitle">视频播放</span>
+                    <button onclick="hidePlayer()" style="
+                        float: right;
+                        padding: 4px 8px;
+                        border: none;
+                        border-radius: 4px;
+                        background: #ff7875;
+                        color: white;
+                        cursor: pointer;
+                        font-size: 14px;
+                    ">关闭播放</button>
+                </h3>
+                <!-- 宽高比容器 -->
+                <div class="player-ratio-box">
+                    <iframe id="bilibiliPlayer" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- 视频列表 -->
+            <ul class="link-list" id="topVideoList">
+                <li class="loading-tip">正在加载视频数据...</li>
+            </ul>
+        </div>
+        
+    </div>
+
+    <script>
+        // ========== 通用功能：内容区域切换 ==========
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 移除所有激活状态
+                document.querySelectorAll('.nav a').forEach(item => item.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+                // 激活当前标签和对应区域
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                
+                // 切换到照片墙时加载图片（默认加载豌豆分类）
+                if (targetId === 'photo') {
+                    loadPhotoGallery('豌豆');
+                }
+            });
+        });
+
+        // ========== 照片墙模块功能（拆分3个子版块） ==========
+        // 全局变量：存储所有照片数据
+        let allPhotoData = [];
+
+        // 绑定分类切换事件
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 移除所有分类按钮激活状态
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                // 激活当前分类
+                this.classList.add('active');
+                // 加载对应分类图片
+                const category = this.getAttribute('data-category');
+                loadPhotoGallery(category);
+            });
+        });
+
+        // 加载指定分类的图片
+        function loadPhotoGallery(category) {
+            const galleryContainer = document.getElementById('photoGallery');
+            if (!galleryContainer) return;
+
+            // 清空容器并显示加载提示
+            galleryContainer.innerHTML = '<div class="loading-tip">正在加载图片...</div>';
+
+            // 如果已有数据，直接筛选展示；否则请求JSON文件
+            if (allPhotoData.length > 0) {
+                renderPhotoByCategory(category);
+                return;
+            }
+
+            // 请求photo.json文件
+            fetch('photo.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`请求失败：${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(photoData => {
+                // 保存所有照片数据到全局变量
+                allPhotoData = photoData;
+                // 渲染指定分类的图片
+                renderPhotoByCategory(category);
+            })
+            .catch(error => {
+                // 显示错误提示
+                galleryContainer.innerHTML = `<div class="error-tip">加载失败：${error.message}</div>`;
+                console.error('照片墙图片加载错误：', error);
+            });
+        }
+
+        // 根据分类筛选并渲染图片
+        function renderPhotoByCategory(category) {
+            const galleryContainer = document.getElementById('photoGallery');
+            
+            // 校验数据格式
+            if (!Array.isArray(allPhotoData) || allPhotoData.length === 0) {
+                galleryContainer.innerHTML = '<div class="no-data-tip">暂无照片墙图片</div>';
+                return;
+            }
+
+            // 筛选指定分类的图片
+            const filteredPhotos = allPhotoData.filter(photo => {
+                // 兼容没有category字段的图片（默认归为豌豆分类）
+                return photo.category === category || (category === '豌豆' && !photo.category);
+            });
+
+            // 如果该分类无图片
+            if (filteredPhotos.length === 0) {
+                galleryContainer.innerHTML = `<div class="no-data-tip">暂无${category}相关图片</div>`;
+                return;
+            }
+
+            // 渲染图片列表
+            galleryContainer.innerHTML = '';
+            filteredPhotos.forEach((photo, index) => {
+                // 校验单张图片数据
+                const imgUrl = photo.url || '';
+                const imgDesc = photo.imgdesc || `${category}${index + 1}`;
+                if (!imgUrl) return;
+
+                // 创建图片项
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `
+                    <img src="${imgUrl}" alt="${imgDesc}" loading="lazy">
+                    <p>${imgDesc}</p>
+                `;
+                // 绑定预览点击事件
+                photoItem.addEventListener('click', () => openImagePreview(imgUrl, imgDesc));
+                galleryContainer.appendChild(photoItem);
+            });
+        }
+
+        // 打开图片预览弹窗
+        function openImagePreview(imgUrl, imgDesc) {
+            const modal = document.getElementById('imagePreviewModal');
+            
+            // 先清空原有容器
+            modal.innerHTML = '';
+            
+            // 创建图片外层容器
+            const previewWrapper = document.createElement('div');
+            previewWrapper.id = 'previewImageWrapper';
+            
+            // 创建关闭按钮
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'close-btn';
+            closeBtn.innerHTML = '×';
+            closeBtn.onclick = closeImagePreview;
+            
+            // 创建图片元素
+            const img = document.createElement('img');
+            img.id = 'previewImage';
+            img.className = 'preview-image';
+            img.alt = imgDesc;
+            
+            // 图片加载完成后再显示
+            img.onload = function() {
+                previewWrapper.appendChild(img);
+                previewWrapper.appendChild(closeBtn);
+                modal.appendChild(previewWrapper);
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            };
+            
+            // 设置图片地址
+            img.src = imgUrl;
+            
+            // 图片加载失败处理
+            img.onerror = function() {
+                modal.innerHTML = '<div style="color:white; padding:20px;">图片加载失败</div>';
+                modal.style.display = 'flex';
+            };
+        }
+
+        // 关闭图片预览弹窗
+        function closeImagePreview() {
+            const modal = document.getElementById('imagePreviewModal');
+            // 清空图片容器
+            modal.innerHTML = '';
+            // 隐藏弹窗
+            modal.style.display = 'none';
+            // 恢复页面滚动
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击弹窗背景关闭预览
+        document.getElementById('imagePreviewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImagePreview();
+            }
+        });
+
+        // 按ESC键关闭预览
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImagePreview();
+            }
+        });
+
+        // ========== 切片模块功能 ==========
+        // 全局变量：记录当前播放的视频ID
+        let currentVideoId = null;
+
+        // 显示播放器并加载视频
+        function showPlayer(videoId, title) {
+            const playerContainer = document.getElementById('videoPlayerContainer');
+            const playerIframe = document.getElementById('bilibiliPlayer');
+            const playerTitle = document.getElementById('playerTitle');
+            
+            // 更新标题和播放器链接
+            playerTitle.textContent = title || '视频播放';
+            // B站嵌入式播放链接（支持移动端/PC端）
+            playerIframe.src = `https://player.bilibili.com/player.html?bvid=${videoId}&high_quality=1&danmaku=1`;
+            
+            // 显示播放器容器
+            playerContainer.style.display = 'block';
+            // 滚动到播放器位置
+            playerContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // 记录当前播放的视频ID
+            currentVideoId = videoId;
+        }
+
+        // 隐藏播放器
+        function hidePlayer() {
+            const playerContainer = document.getElementById('videoPlayerContainer');
+            const playerIframe = document.getElementById('bilibiliPlayer');
+            
+            // 清空播放器链接并隐藏
+            playerIframe.src = '';
+            playerContainer.style.display = 'none';
+            currentVideoId = null;
+        }
+
+        // 从B站链接中提取BV号
+        function extractBVId(url) {
+            if (!url) return '';
+            const match = url.match(/BV\w+/);
+            return match ? match[0] : '';
+        }
+
+        // 加载视频列表并渲染
+        function loadTopVideos() {
+            // 1. 校验DOM元素
+            const listContainer = document.getElementById('topVideoList');
+            if (!listContainer) {
+                console.error('未找到视频列表容器（topVideoList），请检查ID是否匹配');
+                setTimeout(loadTopVideos, 500);
+                return;
+            }
+
+            // 2. 请求JSON文件（路径根据实际位置调整！）
+            fetch('三酒豌豆视频汇总.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`网络错误：${response.status}（请检查JSON文件路径）`);
+                    }
+                    return response.json();
+                })
+                .then(videoData => {
+                    // 3. 数据校验
+                    if (!videoData || !videoData[0] || !videoData[0].视频列表 || videoData[0].视频列表.length === 0) {
+                        throw new Error('JSON数据格式错误或无视频内容');
+                    }
+
+                    // 4. 排序并取前10
+                    const videoList = videoData[0].视频列表;
+                    const sortedVideos = videoList.sort((a, b) => b.播放量 - a.播放量);
+                    const top10Videos = sortedVideos.slice(0, 10);
+
+                    // 5. 渲染列表
+                    listContainer.innerHTML = '';
+                    top10Videos.forEach((video, index) => {
+                        const title = video.标题 || '未知标题';
+                        const playCount = video.播放量 || 0;
+                        const videoLink = video.视频链接 || '#';
+                        const bvId = extractBVId(videoLink);
+
+                        // 创建列表项
+                        const listItem = document.createElement('li');
+                        listItem.style.cursor = 'pointer';
+                        listItem.style.padding = '8px 0';
+                        
+                        // 列表项内容：点击播放 + 跳转B站（备用）
+                        listItem.innerHTML = `
+                            <span onclick="showPlayer('${bvId}', '${title.replace(/'/g, "\\'")}')" style="
+                                color: #e63946;
+                                text-decoration: underline;
+                            ">【播放量${playCount.toLocaleString()}】${title}</span>
+                            <a href="${videoLink}" target="_blank" style="
+                                margin-left: 10px;
+                                font-size: 14px;
+                                color: #666;
+                            ">（跳转B站）</a>
+                        `;
+                        
+                        listContainer.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    // 错误提示
+                    if (listContainer) {
+                        listContainer.innerHTML = '';
+                        const errorItem = document.createElement('li');
+                        errorItem.className = 'error-tip';
+                        errorItem.textContent = `加载失败：${error.message}`;
+                        listContainer.appendChild(errorItem);
+                    }
+                    console.error('视频加载错误详情：', error);
+                });
+        }
+
+        // ========== 直播录像模块功能（修复后） ==========
+        // 全局变量：存储视频日期数据和当前显示的年月
+        let videoDateData = {};
+        let currentCalendarYear = new Date().getFullYear();
+        let currentCalendarMonth = new Date().getMonth();
+
+        // 初始化近期录像列表
+        function initRecentVideosList() {
+            const listContainer = document.getElementById('recent-videos-list');
+            
+            // 请求video-dates.json文件
+            fetch('video-dates.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`请求失败：${response.status} ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(videoData => {
+                    // 保存视频数据到全局变量（供日历使用）
+                    videoDateData = videoData;
+                    
+                    // 处理JSON数据
+                    const videoList = Object.entries(videoData).map(([dateStr, info]) => ({
+                        date: new Date(dateStr),
+                        url: info.url,
+                        title: info.title
+                    }));
+
+                    // 按日期从新到旧排序
+                    videoList.sort((a, b) => b.date - a.date);
+
+                    // 截取最近5条
+                    const recent5Videos = videoList.slice(0, 5);
+
+                    // 渲染列表
+                    if (recent5Videos.length === 0) {
+                        listContainer.innerHTML = '<li class="no-data">暂无直播录像</li>';
+                        return;
+                    }
+
+                    listContainer.innerHTML = '';
+                    recent5Videos.forEach(item => {
+                        const dateStr = item.date.toLocaleDateString('zh-CN');
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<a href="${item.url}" target="_blank">${dateStr} - ${item.title}</a>`;
+                        listContainer.appendChild(listItem);
+                    });
+
+                    // 初始化日历（现在有数据了）
+                    renderCalendar(currentCalendarYear, currentCalendarMonth);
+                })
+                .catch(error => {
+                    listContainer.innerHTML = `<li class="error-tip">加载失败：${error.message}</li>`;
+                    console.error('直播录像加载错误：', error);
+                    // 即使加载失败，也渲染空日历
+                    renderCalendar(currentCalendarYear, currentCalendarMonth);
+                });
+        }
+
+        // 渲染日历
+        function renderCalendar(year, month) {
+            const calendarBody = document.getElementById('calendar-body');
+            const monthDisplay = document.getElementById('month-display');
+            if (!calendarBody || !monthDisplay) return;
+
+            // 更新月份显示
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            monthDisplay.textContent = `${year}年${monthNames[month]}`;
+
+            // 获取当月第一天是星期几（0=周日，6=周六）
+            const firstDay = new Date(year, month, 1).getDay();
+            // 获取当月的天数
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // 清空日历
+            calendarBody.innerHTML = '';
+
+            // 生成日期单元格
+            let date = 1;
+            // 生成6行（最多6行能覆盖所有月份）
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+
+                // 生成7列（周日到周六）
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    
+                    // 填充当月日期
+                    if (i === 0 && j < firstDay) {
+                        // 上月的空白单元格
+                        cell.classList.add('disabled');
+                    } else if (date > daysInMonth) {
+                        // 下月的空白单元格
+                        cell.classList.add('disabled');
+                    } else {
+                        // 当月日期
+                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                        cell.textContent = date;
+
+                        // 标记今天
+                        const today = new Date();
+                        const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                        if (dateStr === todayStr) {
+                            cell.classList.add('today');
+                        }
+
+                        // 如果该日期有视频，添加链接
+                        if (videoDateData[dateStr]) {
+                            cell.classList.add('has-video');
+                            cell.innerHTML = `<a href="${videoDateData[dateStr].url}" target="_blank">${date}</a>`;
+                        }
+
+                        date++;
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+
+                // 如果日期已经超过当月天数，停止生成行
+                if (date > daysInMonth) break;
+            }
+        }
+
+        // 绑定日历切换按钮事件
+        document.getElementById('prev-month')?.addEventListener('click', () => {
+            currentCalendarMonth--;
+            if (currentCalendarMonth < 0) {
+                currentCalendarMonth = 11;
+                currentCalendarYear--;
+            }
+            renderCalendar(currentCalendarYear, currentCalendarMonth);
+        });
+                           
+        document.getElementById('next-month')?.addEventListener('click', () => {
+            currentCalendarMonth++;
+            if (currentCalendarMonth > 11) {
+                currentCalendarMonth = 0;
+                currentCalendarYear++;
+            }
+            renderCalendar(currentCalendarYear, currentCalendarMonth);
+        });
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            // 加载切片视频列表
+            loadTopVideos();
+            // 初始化直播录像列表
+            initRecentVideosList();
+            // 初始化照片墙（默认加载豌豆分类）
+            if (document.querySelector('.nav a.active').dataset.target === 'photo') {
+                loadPhotoGallery('豌豆');
+            }
+        });
+    </script>
+</body>
+</html>
